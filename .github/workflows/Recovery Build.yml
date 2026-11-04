@@ -227,6 +227,13 @@ jobs:
         cd /usr/bin
         sudo ln -sf python2 python
 
+    - name: Inject Custom Stock Kernel
+      run: |
+        echo "Injecting stock kernel into device tree..."
+        curl -L -o ${{ inputs.DEVICE_PATH }}/kernel https://github.com/ejeneen8-collab/kernel-store/releases/download/v1.0/kernel
+        ls -lh ${{ inputs.DEVICE_PATH }}/kernel
+      working-directory: workspace
+
     - name: Building recovery (AOSP)
       if: ${{ steps.buildtree.outputs.value == 'aosp' }} 
       run: |
